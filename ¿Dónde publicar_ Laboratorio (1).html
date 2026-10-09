@@ -1,0 +1,493 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>¿Dónde publicar? Laboratorio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: banda superior de sesión + 3 pestañas (OJS simulado · Caso del correo · Actividad de decisión) en una columna de lectura */
+:root{
+  --paper:#f5f7f6; --surface:#ffffff; --ink:#15302c; --muted:#57706b; --line:#d5e0dd;
+  --teal:#0f6b5c; --teal-soft:#e2f0ec; --amber:#b86e00; --amber-soft:#fdf0db;
+  --red:#b3261e; --red-soft:#fbe5e3; --green:#2f7d32; --green-soft:#e3f1e3;
+  --f-display:"Newsreader",Georgia,serif; --f-body:"IBM Plex Sans",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0f1817; --surface:#162321; --ink:#e3eeeb; --muted:#9fb6b0; --line:#2a3d3a;
+  --teal:#5cc4ae; --teal-soft:#1b3531; --amber:#f0a83c; --amber-soft:#3a2b14;
+  --red:#ff8a80; --red-soft:#3d1d1b; --green:#86d08a; --green-soft:#1d3320; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0f1817; --surface:#162321; --ink:#e3eeeb; --muted:#9fb6b0; --line:#2a3d3a;
+  --teal:#5cc4ae; --teal-soft:#1b3531; --amber:#f0a83c; --amber-soft:#3a2b14;
+  --red:#ff8a80; --red-soft:#3d1d1b; --green:#86d08a; --green-soft:#1d3320; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 var(--f-body);margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:28px 60px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,4.5vw,44px)} h2{font-size:clamp(22px,3vw,30px)} h3{font-size:19px}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+header.top{display:grid;gap:12px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+header.top .meta{color:var(--muted);font-size:14px}
+nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:22px 0 26px}
+nav.tabs button{font:500 14px var(--f-body);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:var(--surface)}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+section.panel{display:grid;gap:22px}
+.lead{color:var(--muted);font-size:16px}
+.note{background:var(--teal-soft);border-radius:10px;padding:14px 16px;font-size:14px}
+.note b{color:var(--teal)}
+
+/* ---------- OJS simulado ---------- */
+.ojs{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.ojs-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--paper);border-bottom:1px solid var(--line);font:500 12px var(--f-mono);color:var(--muted);overflow-x:auto;white-space:nowrap}
+.ojs-bar i{width:10px;height:10px;border-radius:50%;background:var(--line);display:inline-block;flex:none}
+.ojs-head{background:var(--teal);color:var(--surface);padding:18px 20px}
+.ojs-head .t{font:700 22px var(--f-display)} .ojs-head .s{font-size:13px;opacity:.85}
+.ojs-menu{display:flex;flex-wrap:wrap;gap:2px;background:var(--teal-soft);padding:6px 10px;border-bottom:1px solid var(--line)}
+.ojs-menu button{font:500 13.5px var(--f-body);background:transparent;border:0;color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer;position:relative}
+.ojs-menu button:hover{background:var(--surface)}
+.ojs-menu button.on{background:var(--surface);color:var(--teal);font-weight:600}
+.ojs-menu button .dot{position:absolute;top:4px;right:3px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.ojs-menu button.seen .dot{background:var(--green)}
+.ojs-body{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:0}
+.ojs-main{padding:20px;display:grid;gap:12px;min-width:0}
+.ojs-side{border-left:1px solid var(--line);padding:16px;display:grid;gap:10px;align-content:start;font-size:13.5px}
+.ojs-side .blk{border:1px solid var(--line);border-radius:8px;padding:10px}
+.ojs-side .blk b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.ojs-side button.blkbtn{all:unset;cursor:pointer;display:block;border:1px dashed var(--teal);border-radius:8px;padding:10px;color:var(--teal);font-weight:500}
+.ojs-side button.blkbtn:focus-visible{outline:2px solid var(--amber)}
+.crumb{font:500 12px var(--f-mono);color:var(--muted)}
+.ojs-main ul{margin:0;padding-left:20px} .ojs-main li{margin:3px 0}
+.teach{border-left:3px solid var(--amber);background:var(--amber-soft);padding:10px 14px;border-radius:0 8px 8px 0;font-size:14px}
+.teach b{color:var(--amber)}
+.progress{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;max-width:260px}
+.bar span{display:block;height:100%;background:var(--teal);width:0;transition:width .3s}
+.mission{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.mission div{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface);font-size:14px}
+.mission div span{font:500 12px var(--f-mono);color:var(--teal)}
+
+/* ---------- Caso del correo ---------- */
+.case{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start}
+.mail{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:13.5px}
+.mail-h{background:#128a6c;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mail-h b{font:700 16px Georgia,serif}
+.mail-h small{background:#fff;color:#123;padding:2px 8px;font-size:11px;border-radius:2px}
+.mail-b{padding:16px;display:grid;gap:10px}
+.mail-b .band{background:#128a6c;color:#fff;text-align:center;font-weight:600;padding:6px}
+.flag{all:unset;cursor:pointer;background:var(--amber-soft);border-bottom:2px solid var(--amber);border-radius:2px;padding:0 2px;position:relative}
+.flag sup{font:600 10px var(--f-mono);color:var(--amber);margin-left:2px}
+.flag.found{background:var(--red-soft);border-color:var(--red)}
+.flag.found sup{color:var(--red)}
+.flag:focus-visible{outline:2px solid var(--amber)}
+.mail-b .board{color:var(--muted);font-size:12.5px;line-height:1.5}
+.flags-panel{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:grid;gap:12px}
+.counter{font:700 34px var(--f-display);color:var(--red)}
+.counter small{font:500 13px var(--f-body);color:var(--muted)}
+.detail{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:8px;min-height:150px}
+.detail .tag{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px}
+.btn{font:500 14px var(--f-body);border:1px solid var(--teal);background:var(--teal);color:var(--surface);border-radius:8px;padding:8px 14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--teal)}
+.verdict{border:2px solid var(--red);border-radius:12px;padding:18px;display:grid;gap:10px;background:var(--surface)}
+.verdict h3{color:var(--red)}
+.verify{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.verify div{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface);font-size:14px;display:grid;gap:4px}
+.verify div b{font-size:13px}
+.verify .r{color:var(--red);font-weight:600} .verify .o{color:var(--amber);font-weight:600}
+
+/* ---------- Actividad ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.steps div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:6px;font-size:14px}
+.steps .min{font:500 12px var(--f-mono);color:var(--teal)}
+.myart{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+label{font-size:13px;font-weight:500;display:grid;gap:4px;color:var(--muted)}
+input[type=text],select{font:14px var(--f-body);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);width:100%}
+.journals{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px}
+.jcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:12px;align-content:start}
+.jcard h3{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.jcard h3 span{font:500 12px var(--f-mono);color:var(--muted)}
+fieldset{border:0;border-top:1px solid var(--line);padding:10px 0 0;margin:0;display:grid;gap:6px}
+legend{font:500 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--teal);padding-right:6px}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--ink);font-weight:400}
+.chk input{margin-top:4px;accent-color:var(--teal);flex:none}
+.chk.crit::after{content:"crítico";font:500 10px var(--f-mono);color:var(--red);border:1px solid var(--red);border-radius:4px;padding:0 4px;margin-left:auto;align-self:center}
+.status{border-radius:8px;padding:10px 12px;font-size:14px;font-weight:600}
+.status.go{background:var(--green-soft);color:var(--green)}
+.status.wait{background:var(--amber-soft);color:var(--amber)}
+.status.stop{background:var(--red-soft);color:var(--red)}
+.status.none{background:var(--paper);color:var(--muted);font-weight:500}
+.ranking{background:var(--surface);border:2px solid var(--teal);border-radius:12px;padding:18px;display:grid;gap:12px}
+.ranking ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.ranking pre{white-space:pre-wrap;font:13px/1.55 var(--f-mono);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;margin:0;max-height:320px;overflow:auto}
+.example{font:500 11px var(--f-mono);color:var(--amber);border:1px solid var(--amber);border-radius:4px;padding:1px 6px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px}
+summary{cursor:pointer;font-weight:600}
+details ul{margin:8px 0 0;padding-left:20px;font-size:14px}
+.lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.src{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--teal);border-radius:10px;padding:14px;display:grid;gap:8px;align-content:start;font-size:14px}
+.src.warn{border-top-color:var(--red)}
+.src .kind{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.src b{font-size:15.5px}
+.src .how,.latam .how{background:var(--paper);border-radius:8px;padding:8px 10px;font-size:13.5px}
+a{color:var(--teal);font-weight:500}
+.latam{background:var(--surface);border:2px solid var(--amber);border-radius:12px;padding:18px;display:grid;gap:10px}
+.latam .eyebrow{color:var(--amber)}
+footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.mono{font-family:var(--f-mono);font-size:13px}
+@media (max-width:760px){
+  .ojs-body{grid-template-columns:minmax(0,1fr)} .ojs-side{border-left:0;border-top:1px solid var(--line)}
+  .case{grid-template-columns:minmax(0,1fr)} .flags-panel{position:static}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <span class="eyebrow">Módulo VI · Sesión 3 · 9 de octubre de 2026</span>
+  <h1>¿Dónde publicar? Del OJS a la decisión</h1>
+  <p class="meta">Diplomado en Investigación y Producción Científica Asistida con IA · MSc. Gineth Jhoselyn Salo Condori</p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Partes de la sesión">
+  <button role="tab" id="tab-ojs" aria-selected="true" data-p="p-ojs">1 · Recorrido por un OJS</button>
+  <button role="tab" id="tab-case" aria-selected="false" data-p="p-case">2 · Caso real: ¿revista o trampa?</button>
+  <button role="tab" id="tab-act" aria-selected="false" data-p="p-act">3 · Actividad: mi ruta de publicación</button>
+  <button role="tab" id="tab-lists" aria-selected="false" data-p="p-lists">4 · Listas y verificadores</button>
+</nav>
+
+<!-- ================= 1. OJS ================= -->
+<section class="panel" id="p-ojs" role="tabpanel">
+  <div style="display:grid;gap:8px">
+    <h2>Dónde vive la información que decide tu envío</h2>
+    <p class="lead">Casi todas las revistas latinoamericanas usan Open Journal Systems (OJS, de PKP). El menú cambia de nombre entre revistas, pero la información está siempre en los mismos lugares. Haz clic en cada pestaña del menú y del panel lateral.</p>
+  </div>
+  <div class="progress"><span id="seenTxt">0 de 9 secciones exploradas</span><div class="bar"><span id="seenBar"></span></div></div>
+
+  <div class="ojs">
+    <div class="ojs-bar"><i></i><i></i><i></i>&nbsp; https://revistas.universidad.edu.bo/index.php/<b id="url-slug">ricg</b></div>
+    <div class="ojs-head">
+      <div class="t">Revista de Ingeniería y Ciencias de la Gestión</div>
+      <div class="s">e-ISSN 0000-0000 · Semestral · Revista de ejemplo para la clase</div>
+    </div>
+    <div class="ojs-menu" id="ojsMenu">
+      <button data-s="actual">Actual<span class="dot"></span></button>
+      <button data-s="archivos">Archivos<span class="dot"></span></button>
+      <button data-s="alcance">Acerca de › Enfoque y alcance<span class="dot"></span></button>
+      <button data-s="equipo">Equipo editorial<span class="dot"></span></button>
+      <button data-s="envios">Envíos › Directrices<span class="dot"></span></button>
+      <button data-s="politicas">Políticas<span class="dot"></span></button>
+      <button data-s="avisos">Avisos<span class="dot"></span></button>
+    </div>
+    <div class="ojs-body">
+      <div class="ojs-main" id="ojsMain"></div>
+      <aside class="ojs-side">
+        <button class="blkbtn" data-s="plantilla">⬇ Plantilla del artículo (.docx)</button>
+        <button class="blkbtn" data-s="indexacion">Indexada en ›</button>
+        <div class="blk"><b>Enviar un artículo</b>Requiere crear una cuenta con rol de Autor/a.</div>
+        <div class="blk"><b>Idioma</b>Español · English · Português</div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="note"><b>Ahora en una revista real:</b> abre el OJS de una revista de tu área (por ejemplo, <a href="https://www.revista3i.com" target="_blank" rel="noopener">www.revista3i.com</a>) y repite el recorrido. Los nombres del menú pueden cambiar, pero las secciones son las mismas.</div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Misión cronometrada (8 min, en parejas)</h3>
+    <p>Abre el OJS de una revista candidata para tu propio artículo y encuentra estos seis datos. Si no encuentras alguno, ya tienes una primera señal sobre la transparencia de la revista.</p>
+    <div class="mission">
+      <div><span>DATO 1</span><br>Una frase del enfoque y alcance que conecte con su tema.</div>
+      <div><span>DATO 2</span><br>Tipos de artículo que acepta y extensión máxima.</div>
+      <div><span>DATO 3</span><br>Tipo de revisión por pares y tiempo declarado.</div>
+      <div><span>DATO 4</span><br>Costo de publicación (APC) o declaración de que no cobra.</div>
+      <div><span>DATO 5</span><br>Política sobre el uso de IA por autores y revisores.</div>
+      <div><span>DATO 6</span><br>Dónde está indexada, y comprobarlo en la base misma.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. CASO ================= -->
+<section class="panel" id="p-case" role="tabpanel" hidden>
+  <div style="display:grid;gap:8px">
+    <h2>Llegó a mi bandeja: ¿la revista me encontró o me cazó?</h2>
+    <p class="lead">Este es un correo real que recibió una investigadora boliviana tras publicar un artículo. Antes de mirar las respuestas, intenta identificar por tu cuenta las señales de alerta. Luego haz clic en cada fragmento resaltado. Hay 10 señales.</p>
+  </div>
+
+  <div class="case">
+    <article class="mail" aria-label="Reproducción del correo recibido">
+      <div class="mail-h"><div><b>Earth Sciences (EARTH)</b><br><span style="font-size:12px">e-ISSN: 2328-5982</span></div>
+        <div style="display:grid;gap:4px;justify-items:end"><small>Journal of the Gold OA Model</small><small><button class="flag" data-f="7" style="color:#123">Fast Article Publication<sup>7</sup></button></small></div></div>
+      <div class="mail-b">
+        <p>Dear Gineth Jhoselyn Salo Condori,</p>
+        <p>This platform's <button class="flag" data-f="9">300+ open-access journals<sup>9</sup></button> enable researchers to disseminate their work globally, spanning a diverse range of disciplines. More than 220 journals have been published without interruption for a decade now.</p>
+        <div class="band">Invitation to Contribute Your Manuscripts/Abstracts</div>
+        <p>Having noticed that your published work <button class="flag" data-f="2">"Impacto del IoT en la Cadena de Suministro Farmacéutica en BoliviaImpact of IoT on the Pharmaceutical Supply Chain in Bolivia"<sup>2</sup></button> <button class="flag" data-f="1">has caught great attention<sup>1</sup></button>, we cordially invite you to submit original articles <button class="flag" data-f="3">in your specialized/interested field<sup>3</sup></button>.</p>
+        <p>Manuscript/Abstract submission:<br><button class="flag" data-f="4">http://www.esciencesj.com/sg/wcedCf<sup>4</sup></button></p>
+        <div class="band">Join Us as the Editorial Board Member or Reviewer</div>
+        <p>EARTH is finding scholars who have rich experience and strong academic backgrounds to serve as editorial members (reviewers). <button class="flag" data-f="5">You can click the following link to join the journal Editorial Board/Reviewer Team<sup>5</sup></button>: http://www.esciencesj.com/jy/wcedCf</p>
+        <p class="board">Presented below are several of the Editorial Members and Reviewers of EARTH: Prof. Q. Wang (Zhejiang, China) · Dr. X. Zhao (Hohhot, China) · Dr. I. S. Umo (Owerri, Nigeria) · Dr. M. A. Hussain (Wenzhou, China) <button class="flag" data-f="6">…<sup>6</sup></button> Assist. Prof. M. Sahoo (Cuttack, India) · Dr. S. J. Adams (Somanya, Ghana) · Assist. Prof. Y. Cui (Beijing, China) · Assist. Prof. A. Saha (Dibrugarh, India) …</p>
+        <p class="board">The title of your article is … and the detailed abstract: <button class="flag" data-f="8">OBJETIVO: analizar el impacto del Internet de las Cosas (IoT) en los actores de la cadena de suministro…<sup>8</sup></button></p>
+        <p class="board"><button class="flag" data-f="10">[No menciona tarifas, plazos de revisión ni proceso editorial]<sup>10</sup></button></p>
+      </div>
+    </article>
+
+    <div class="flags-panel">
+      <div class="counter"><span id="fCount">0</span><small> / 10 señales encontradas</small></div>
+      <div class="detail" id="fDetail" aria-live="polite">
+        <span class="tag">Instrucción</span>
+        <p>Selecciona un fragmento resaltado del correo para ver por qué es una señal de alerta y con qué criterio de la clase se relaciona.</p>
+      </div>
+      <div class="btnrow">
+        <button class="btn" id="showAll">Revelar todas</button>
+        <button class="btn ghost" id="resetFlags">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <span class="eyebrow" style="color:var(--red)">Veredicto</span>
+    <h3>Práctica editorial sospechosa: no enviar, no aceptar el cargo de revisor</h3>
+    <p>Ninguna señal aislada basta para calificar a una revista como depredadora. Aquí coinciden al menos siete de las diez señales de la guía DOAJ–Latindex, y la verificación externa las confirma. Distingamos dos niveles. La revista <i>Earth Sciences</i> existe y pertenece a Science Publishing Group (SciencePG), una editorial que figuraba en la lista de Beall de editoriales potencialmente depredadoras. El correo, en cambio, llega desde un dominio distinto al de la editorial (esciencesj.com), lo que exige desconfiar incluso de su autenticidad.</p>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Cómo se verificó (puedes repetirlo en 5 minutos)</h3>
+    <div class="verify">
+      <div><b>1. ¿El alcance encaja?</b><span class="r">No.</span>La página oficial de alcance de la revista lista geofísica, oceanografía, climatología, hidrología y temas afines. Un artículo sobre IoT en la cadena de suministro farmacéutica no pertenece ahí.</div>
+      <div><b>2. ¿Dónde está indexada?</b><span class="r">Solo en dos bases menores.</span>Su propia página declara únicamente NSTL y Asian Science Citation Index. No declara Scopus, Web of Science, DOAJ ni Latindex.</div>
+      <div><b>3. ¿Quién la publica?</b><span class="o">Editorial en la lista de Beall.</span>SciencePG aparece en la lista de 2013. La lista está archivada desde 2017 y no es un fallo definitivo, pero es una alerta documentada.</div>
+      <div><b>4. ¿El remitente es la revista?</b><span class="r">Dominio distinto.</span>La editorial opera en sciencepublishinggroup.com. Los enlaces del correo llevan a esciencesj.com, sin cifrado (http) y con códigos de rastreo.</div>
+    </div>
+    <p class="mono" style="color:var(--muted)">Fuentes: sciencepublishinggroup.com/journal/161/about · …/journal/161/abstracting-and-indexing · Lista de Beall 2013 (copia archivada) · consultas del 9/10/2026.</p>
+  </div>
+
+  <details>
+    <summary>Preguntas para reflexionar</summary>
+    <ul>
+      <li>Si la revista existe y tiene ISSN, ¿por qué eso no basta para considerarla confiable?</li>
+      <li>¿Qué perdería la autora si este artículo se publica aquí y luego quiere enviarlo a una revista Scopus?</li>
+      <li>Las personas listadas en el comité, ¿saben que figuran ahí? ¿Cómo lo comprobarías sin acusar a nadie?</li>
+      <li>¿Acceso abierto con APC es lo mismo que depredador? (Recordar: no son sinónimos.)</li>
+    </ul>
+  </details>
+</section>
+
+<!-- ================= 3. ACTIVIDAD ================= -->
+<section class="panel" id="p-act" role="tabpanel" hidden>
+  <div style="display:grid;gap:8px">
+    <h2>Mi ruta de publicación: tres revistas, un orden, una justificación</h2>
+    <p class="lead">Cada participante sale de la sesión con una revista principal y dos alternativas verificadas para el artículo que produce en el diplomado. El orden no lo decide el factor de impacto: primero el ajuste, luego la legitimidad, y al final la estrategia.</p>
+  </div>
+
+  <div class="steps">
+    <div><span class="min">10 MIN · BUSCAR</span><b>Lista larga</b>Revistas citadas en tu bibliografía, revistas de colegas, buscadores (Journal Finder de Elsevier, Springer Journal Suggester, JANE) y catálogos (Latindex, DOAJ, SciELO, Redalyc). Anota cinco.</div>
+    <div><span class="min">15 MIN · FILTRO 1 Y 2</span><b>Ajuste y legitimidad</b>Con el OJS abierto, marca las casillas de cada revista. Lo crítico se verifica en la base de datos misma, nunca solo en la web de la revista.</div>
+    <div><span class="min">10 MIN · FILTRO 3</span><b>Estrategia</b>Cuartil en SJR o JCR, tiempo de decisión, APC y si tu artículo cumple ya la plantilla o necesita trabajo adicional.</div>
+    <div><span class="min">10 MIN · DEFENDER</span><b>Ficha de decisión</b>Copia la ficha generada y defiéndela en 60 segundos ante un compañero o compañera que actúa como editor/a en jefe y busca una razón para rechazar.</div>
+  </div>
+
+  <div class="myart">
+    <label for="a-title">Título provisional de mi artículo<input type="text" id="a-title" value="Ejemplo: Adopción de IA generativa en la redacción de tesis de posgrado"></label>
+    <label for="a-type">Tipo de artículo<select id="a-type"><option>Artículo original</option><option>Revisión sistemática</option><option>Revisión de literatura</option><option>Comunicación breve</option><option>Estudio de caso</option></select></label>
+    <label for="a-lang">Idioma de redacción<select id="a-lang"><option>Español</option><option>Inglés</option><option>Portugués</option></select></label>
+    <label for="a-apc">Presupuesto para APC<select id="a-apc"><option value="0">Ninguno</option><option value="500">Hasta 500 USD</option><option value="9999">Más de 500 USD</option></select></label>
+  </div>
+
+  <div class="journals" id="journals"></div>
+
+  <div class="ranking">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline"><h3>Mi decisión</h3><span class="example" id="exTag">Ejemplo precargado · reemplázalo con tus revistas</span></div>
+    <ol id="rankList"></ol>
+    <pre id="ficha"></pre>
+    <div class="btnrow"><button class="btn" id="copyFicha">Copiar ficha de decisión</button><button class="btn ghost" id="clearAll">Vaciar y empezar</button></div>
+    <p style="font-size:13px;color:var(--muted)">Lo que escribes se guarda solo en este navegador. Para entregar, copia la ficha y pégala en la tarea de Moodle.</p>
+  </div>
+
+  <details>
+    <summary>Criterios que debe cumplir tu decisión</summary>
+    <ul>
+      <li>Una revista con una casilla crítica sin marcar queda descartada aunque tenga buen cuartil.</li>
+      <li>Tu revista principal debe cumplir al menos 4 de 5 criterios de ajuste. Si el ajuste es bajo, el artículo se rechaza en la revisión editorial inicial, antes de llegar a pares.</li>
+      <li>Tus alternativas deben ser de menor exigencia que la principal, para tener un plan si la primera rechaza.</li>
+      <li>Tu ficha debe nombrar la fuente donde verificaste la indexación (por ejemplo: "Scopus Sources, consultado el 9/10/2026").</li>
+      <li>Revisa también la pestaña 4: confirma que ninguna de tus revistas figure en la lista de títulos descontinuados de Scopus ni en el verificador de revistas secuestradas.</li>
+    </ul>
+  </details>
+</section>
+
+<!-- ================= 4. LISTAS ================= -->
+<section class="panel" id="p-lists" role="tabpanel" hidden>
+  <div style="display:grid;gap:8px">
+    <h2>Listas y verificadores: dónde comprobar antes de enviar</h2>
+    <p class="lead">Ninguna lista es definitiva. Las listas blancas dicen qué revistas cumplen criterios hoy; las listas de alerta registran problemas detectados. Usa varias y anota siempre la fecha de consulta.</p>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Listas de alerta</h3>
+    <div class="lists">
+      <div class="src warn">
+        <span class="kind">Oficial · se actualiza cada mes</span>
+        <b>Scopus: títulos descontinuados</b>
+        <p>Elsevier publica en Excel la lista de fuentes que dejaron de indexarse, con el volumen y número en que terminó la cobertura. Una revista sale de Scopus por denuncias de la comunidad sobre ética o integridad, o porque su comportamiento de publicación y citación se vuelve atípico. Lo publicado antes de la baja sigue en Scopus, salvo faltas éticas graves.</p>
+        <p class="how"><b>Cómo usarla:</b> busca el ISSN de tu revista en el Excel. Si aparece, Scopus ya no indexa lo que publique desde esa fecha, aunque su web siga mostrando el logotipo.</p>
+        <a href="https://www.elsevier.com/products/scopus/content/content-policy-and-selection" target="_blank" rel="noopener">Política de contenido de Scopus (descarga del Excel) ↗</a>
+      </div>
+      <div class="src warn">
+        <span class="kind">Archivo histórico · congelado en 2016</span>
+        <b>Lista de Beall (copia archivada)</b>
+        <p>Lista de editoriales señaladas como potencial, posible o probablemente depredadoras, actualizada por última vez el 31/12/2016. Jeffrey Beall la retiró en enero de 2017 tras amenazas de demanda. La copia del blog Medical Libraryland se reprodujo sin cambios y su autora advierte que perderá vigencia con el tiempo.</p>
+        <p class="how"><b>Cómo usarla:</b> como una alerta inicial, no como un veredicto. Las editoriales cambian prácticas y de nombre, y algunas entradas fueron cuestionadas.</p>
+        <a href="https://clinicallibrarian.wordpress.com/2017/01/23/bealls-list-of-predatory-publishers/" target="_blank" rel="noopener">Beall's list (Medical Libraryland) ↗</a>
+      </div>
+      <div class="src warn">
+        <span class="kind">Actualizada · más de 400 entradas (dic. 2025)</span>
+        <b>Retraction Watch Hijacked Journal Checker</b>
+        <p>Hoja de cálculo de revistas secuestradas: sitios falsos que copian el nombre y el ISSN de una revista legítima para cobrar a autores. La mantiene Anna Abalkina junto a Retraction Watch y suma entre 70 y 80 casos por año, incluidas revistas en idiomas locales.</p>
+        <p class="how"><b>Cómo usarla:</b> si la revista es legítima, confirma que la URL donde vas a enviar es la misma que figura en Scopus, DOAJ o Latindex.</p>
+        <a href="https://retractionwatch.com/the-retraction-watch-hijacked-journal-checker/" target="_blank" rel="noopener">Hijacked Journal Checker ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;gap:10px">
+    <h3>Listas blancas y herramientas para verificar</h3>
+    <div class="lists">
+      <div class="src ok"><span class="kind">Base de citas</span><b>Scopus Sources</b><p>Busca por título, editorial o ISSN. Scopus no cobra a los autores por indexar: si una revista te pide pagar "para indexarte en Scopus", es una alerta.</p><a href="https://www.scopus.com/sources" target="_blank" rel="noopener">scopus.com/sources ↗</a></div>
+      <div class="src ok"><span class="kind">Acceso abierto</span><b>DOAJ</b><p>Directorio de revistas de acceso abierto que cumplen criterios de calidad editorial.</p><a href="https://doaj.org" target="_blank" rel="noopener">doaj.org ↗</a></div>
+      <div class="src ok"><span class="kind">Iberoamérica</span><b>Latindex Catálogo 2.0</b><p>Distingue el Directorio (solo registro) del Catálogo (revistas evaluadas). Verifica que tu revista esté en el Catálogo.</p><a href="https://www.latindex.org" target="_blank" rel="noopener">latindex.org ↗</a></div>
+      <div class="src ok"><span class="kind">Identificador</span><b>Portal ISSN</b><p>Confirma que el ISSN existe y que corresponde al título que declara la revista.</p><a href="https://portal.issn.org" target="_blank" rel="noopener">portal.issn.org ↗</a></div>
+      <div class="src ok"><span class="kind">Lista de chequeo</span><b>Think. Check. Submit.</b><p>Preguntas guiadas para evaluar una revista antes de enviar.</p><a href="https://thinkchecksubmit.org" target="_blank" rel="noopener">thinkchecksubmit.org ↗</a></div>
+      <div class="src ok"><span class="kind">Buscador de revistas</span><b>JANE</b><p>Pega tu resumen y sugiere revistas que publicaron artículos similares.</p><a href="https://jane.biosemantics.org" target="_blank" rel="noopener">jane.biosemantics.org ↗</a></div>
+    </div>
+  </div>
+
+  <div class="latam">
+    <span class="eyebrow">¿Y las revistas latinoamericanas?</span>
+    <h3>No existe una lista pública de revistas depredadoras latinoamericanas</h3>
+    <p>Las prácticas depredadoras también aparecen en la región, aunque son menos frecuentes que en otras partes del mundo. Se atribuye a la tradición iberoamericana de publicación sin fines de lucro y de acceso abierto sin costo. Hasta octubre de 2026 no encontramos una lista pública que nombre revistas latinoamericanas depredadoras.</p>
+    <p>Latindex eligió otro camino. En 2020 publicó la <i>Guía para editores: identificación y tratamiento de revistas espurias</i>, que describe rasgos característicos en lugar de nombrar títulos, y cuenta con una comisión que evalúa los casos detectados. Además trabaja con DOAJ para intercambiar información y armonizar criterios.</p>
+    <p class="how"><b>Qué hacer con una revista de la región:</b> (1) verifica que esté en el Catálogo 2.0 de Latindex, no solo en el Directorio; (2) aplica las 10 señales de alerta; (3) búscala en el verificador de revistas secuestradas, que incluye revistas en idiomas locales; (4) si dice estar en Scopus, búscala en Scopus Sources y en la lista de descontinuadas.</p>
+    <a href="https://www.revistas.usp.br/wp/wp-content/uploads/Revistas_espurias-Guia_para_editores_definitiva.pdf" target="_blank" rel="noopener">Guía Latindex sobre revistas espurias (PDF, 2020) ↗</a>
+  </div>
+  <p class="mono" style="color:var(--muted)">Fuentes consultadas el 9/10/2026: Elsevier, Scopus Content Policy and Selection · Medical Libraryland, Beall's list (2017) · Retraction Watch (26/12/2025) · Abejón Peña et al., "Fraudulent practices in the field of academic publishing: The Latindex experience" · Latindex, Guía para editores (2020).</p>
+</section>
+
+<footer>© Gineth Jhoselyn Salo Condori</footer>
+</div>
+
+<script>
+/* ---------- pestañas ---------- */
+const tabs=[...document.querySelectorAll('nav.tabs button')];
+function openTab(id){tabs.forEach(t=>{const on=t.dataset.p===id;t.setAttribute('aria-selected',on);document.getElementById(t.dataset.p).hidden=!on});try{localStorage.setItem('dp-tab',id)}catch(e){}}
+tabs.forEach(t=>t.addEventListener('click',()=>openTab(t.dataset.p)));
+const h=location.hash.replace('#','');
+if(['p-ojs','p-case','p-act','p-lists'].includes(h))openTab(h);else{try{const s=localStorage.getItem('dp-tab');if(s)openTab(s)}catch(e){}}
+
+/* ---------- OJS ---------- */
+const S={
+ actual:{c:'Inicio › Número actual',h:'Vol. 8 Núm. 2 (2026): julio–diciembre',b:`<ul><li>Lean Six Sigma en plantas de envasado del oriente boliviano</li><li>Modelo de inventario con demanda estocástica para farmacias</li><li>Gemelos digitales en mantenimiento predictivo: revisión sistemática</li></ul>`,t:'Lee títulos y resúmenes de los últimos dos números. Si ningún artículo se parece al tuyo en tema o método, el alcance escrito puede no reflejar lo que la revista realmente publica.'},
+ archivos:{c:'Inicio › Archivos',h:'Números anteriores',b:`<ul><li>Vol. 8 Núm. 1 (2026) · 9 artículos</li><li>Vol. 7 Núm. 2 (2025) · 8 artículos</li><li>Vol. 7 Núm. 1 (2025) · 10 artículos</li></ul>`,t:'La regularidad es un criterio de Latindex. Números puntuales y un volumen estable indican seriedad; cientos de artículos por número son una señal de alerta (volumen de publicación).'},
+ alcance:{c:'Acerca de › Enfoque y alcance',h:'Enfoque y alcance',b:`<p>Publica artículos originales, revisiones y estudios de caso en ingeniería industrial, gestión de operaciones, logística, calidad y transformación digital de las organizaciones. Dirigida a investigadores, docentes y profesionales de América Latina.</p><p><b>Ejes temáticos:</b> producción y operaciones · cadena de suministro · calidad y mejora continua · industria 4.0 · gestión de la innovación.</p>`,t:'Es la primera puerta y la causa más común de rechazo editorial. Compara tus palabras clave con los ejes temáticos. Un alcance que acepta "cualquier área del conocimiento" es una señal de alerta.'},
+ equipo:{c:'Acerca de › Equipo editorial',h:'Equipo editorial',b:`<ul><li><b>Editora en jefe:</b> Dra. N. N., Universidad X (ORCID enlazado)</li><li><b>Comité científico:</b> 12 miembros de 7 países, con afiliación y ORCID</li><li><b>Correo:</b> revista@universidad.edu.bo</li></ul>`,t:'Abre dos ORCID al azar. Los miembros deben existir, trabajar en el área y figurar con correos institucionales, no de Gmail o WhatsApp.'},
+ envios:{c:'Envíos › Directrices para autores',h:'Directrices para autores',b:`<ul><li>Tipos: artículo original (máx. 8 000 palabras), revisión (máx. 10 000), estudio de caso (máx. 6 000)</li><li>Resumen estructurado de 250 palabras en español e inglés</li><li>Normas APA 7 · ORCID obligatorio para todos los autores</li><li>Lista de comprobación previa al envío (7 ítems)</li><li>Video tutorial: "Cómo enviar tu artículo en OJS"</li></ul>`,t:'Aquí se decide cuánto trabajo extra necesita tu manuscrito: extensión, estructura del resumen, citación. Muchas revistas incluyen videos de envío; úsalos en la clase.'},
+ politicas:{c:'Acerca de › Políticas',h:'Políticas editoriales',b:`<ul><li><b>Revisión por pares:</b> doble ciego, dos revisores externos, decisión en 8 a 12 semanas</li><li><b>Acceso abierto:</b> licencia CC BY 4.0, sin costo para autores (APC = 0)</li><li><b>Ética:</b> adhesión a COPE · detección de similitud con Turnitin</li><li><b>Uso de IA:</b> debe declararse en Metodología; la IA no puede ser autora</li><li><b>Preservación:</b> LOCKSS / PKP PN</li></ul>`,t:'Busca cuatro cosas: tipo de revisión, plazos realistas, costos explícitos y política de IA. Una promesa de publicación en días o semanas es una señal de alerta.'},
+ avisos:{c:'Inicio › Avisos',h:'Avisos',b:`<ul><li><b>Convocatoria abierta</b> · Número especial "IA en la gestión de operaciones" · cierre 30/11/2026</li><li>Nueva plantilla 2026 disponible</li></ul>`,t:'Las convocatorias (call for papers) indican qué busca hoy la revista. Un número especial sobre tu tema mejora mucho las probabilidades de que el artículo pase a revisión.'},
+ plantilla:{c:'Bloque lateral › Plantilla',h:'Plantilla del artículo',b:`<p>Documento Word con márgenes, estilos de título, formato de tablas y figuras, y la estructura IMRyD comentada.</p>`,t:'Enviar en la plantilla de la revista muestra que elegiste esa revista a propósito, no que reciclas un envío rechazado.'},
+ indexacion:{c:'Bloque lateral › Indexación',h:'Indexada en',b:`<ul><li>Latindex Catálogo 2.0</li><li>DOAJ</li><li>Google Scholar</li><li>ROAD</li></ul>`,t:'Logotipos no prueban nada. Busca la revista por ISSN en el sitio de cada base. Si declara Scopus o un factor de impacto, compruébalo en Scopus Sources o en JCR. Factores de impacto inventados son una señal de alerta.'}
+};
+const seen=new Set();let current='alcance';
+function showS(k){current=k;seen.add(k);const s=S[k];
+ document.getElementById('ojsMain').innerHTML=`<span class="crumb">${s.c}</span><h3>${s.h}</h3>${s.b}<div class="teach"><b>Qué mirar:</b> ${s.t}</div>`;
+ document.querySelectorAll('[data-s]').forEach(b=>{b.classList.toggle('on',b.dataset.s===k);if(seen.has(b.dataset.s))b.classList.add('seen')});
+ document.getElementById('seenTxt').textContent=`${seen.size} de 9 secciones exploradas`;
+ document.getElementById('seenBar').style.width=(seen.size/9*100)+'%';}
+document.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>showS(b.dataset.s)));
+showS('alcance');
+
+/* ---------- Caso ---------- */
+const F={
+ 1:['Invitación halagadora (señal 5)','"Ha llamado mucho la atención" es una frase genérica que se usa con todos los destinatarios. Ningún editor serio sabe cuánta atención recibió tu artículo ni lo menciona para invitar.'],
+ 2:['Datos extraídos por robot','El título en español y el título en inglés aparecen pegados sin espacio. Es el rastro de una extracción automática de metadatos: nadie leyó el artículo.'],
+ 3:['Alcance indefinido (señal 7)','Invitan a enviar "en tu campo de especialidad o interés". Una revista de Ciencias de la Tierra invita a una autora de cadena de suministro farmacéutica. El alcance no importa porque lo que importa es el envío.'],
+ 4:['Enlaces de otro dominio','Los enlaces apuntan a esciencesj.com, sin https y con códigos de rastreo. No es el dominio de la editorial. Nunca ingreses datos ni subas un manuscrito desde un enlace de correo: entra a la revista escribiendo su dirección.'],
+ 5:['Reclutamiento masivo de revisores (señal 2)','Un comité editorial se forma por invitación del editor tras evaluar trayectoria, no por un formulario abierto en un correo masivo. Así se inflan comités para aparentar respaldo.'],
+ 6:['Comité incompleto e inverificable (señal 2)','Lista nombres con puntos suspensivos. Sin enlaces a ORCID ni correos institucionales no se puede verificar si estas personas aceptaron figurar. No se debe acusar a los nombrados: muchas veces se los incluye sin su consentimiento.'],
+ 7:['Promesa de rapidez (señal 6)','"Fast Article Publication" en la cabecera. La revisión por pares real toma semanas o meses. La velocidad se ofrece como producto porque el producto es la publicación, no la evaluación.'],
+ 8:['Envía tu propio resumen de vuelta','Copian tu resumen completo para dar apariencia de lectura personalizada. Es un recurso persuasivo y otra prueba de extracción automática.'],
+ 9:['Megaportafolio contradictorio (señal 8)','"300+ revistas" y luego "más de 220 revistas" en el mismo párrafo. Portafolios gigantes y multidisciplinarios con cifras inconsistentes caracterizan a editoriales orientadas al volumen.'],
+ 10:['Lo que no dice (señales 9 y 10)','No informa la tarifa de publicación, el tipo de revisión por pares ni los plazos. La guía DOAJ–Latindex describe como práctica no ética ocultar los costos hasta después de la aceptación.']
+};
+const found=new Set();
+function showF(n){found.add(n);const f=F[n];
+ document.getElementById('fDetail').innerHTML=`<span class="tag">Señal ${n}</span><h3>${f[0]}</h3><p>${f[1]}</p>`;
+ document.querySelectorAll(`.flag[data-f="${n}"]`).forEach(x=>x.classList.add('found'));
+ document.getElementById('fCount').textContent=found.size;}
+document.querySelectorAll('.flag').forEach(b=>b.addEventListener('click',()=>showF(+b.dataset.f)));
+document.getElementById('showAll').addEventListener('click',()=>{for(let i=1;i<=10;i++)found.add(i);document.querySelectorAll('.flag').forEach(x=>x.classList.add('found'));document.getElementById('fCount').textContent=10;
+ document.getElementById('fDetail').innerHTML='<span class="tag">Resumen</span><h3>10 de 10</h3><p>Halago genérico, robot de extracción, alcance indefinido, dominio ajeno, reclutamiento masivo, comité inverificable, promesa de rapidez, resumen reciclado, cifras contradictorias y silencio sobre costos y revisión.</p>'});
+document.getElementById('resetFlags').addEventListener('click',()=>{found.clear();document.querySelectorAll('.flag').forEach(x=>x.classList.remove('found'));document.getElementById('fCount').textContent=0;
+ document.getElementById('fDetail').innerHTML='<span class="tag">Instrucción</span><p>Selecciona un fragmento resaltado del correo para ver por qué es una señal de alerta.</p>'});
+
+/* ---------- Actividad ---------- */
+const FIT=['El tema encaja con el enfoque y los ejes temáticos','Publica mi tipo de artículo','Acepta mi idioma de redacción','Publicó en los últimos 2 años artículos parecidos al mío','Su público es el que quiero alcanzar'];
+const LEG=[['ISSN verificado en portal.issn.org',1],['Indexación comprobada en la base misma (Scopus, WoS, DOAJ, Latindex, SciELO)',1],['Equipo editorial identificable, con ORCID y afiliación',0],['Revisión por pares y plazos descritos con claridad',1],['Costos (APC) declarados antes del envío',0],['No presenta señales de alerta de la guía DOAJ–Latindex',1]];
+const EX=[
+ {name:'Revista de ejemplo A (Scopus Q3)',url:'',q:'Q3',time:'3-6',apc:'0',fit:[1,1,1,1,0],leg:[1,1,1,1,1,1]},
+ {name:'Revista de ejemplo B (Latindex Catálogo 2.0)',url:'',q:'Regional',time:'<3',apc:'0',fit:[1,1,1,0,1],leg:[1,1,1,1,1,1]},
+ {name:'Revista de ejemplo C (invitación por correo)',url:'',q:'Sin dato',time:'<1',apc:'9999',fit:[0,1,1,0,0],leg:[1,0,0,0,0,0]}];
+const box=document.getElementById('journals');
+function card(i){return `<div class="jcard"><h3>Revista ${'ABC'[i]} <span id="j${i}-score">—</span></h3>
+ <label for="j${i}-name">Nombre de la revista<input type="text" id="j${i}-name"></label>
+ <label for="j${i}-url">URL del OJS o ISSN<input type="text" id="j${i}-url"></label>
+ <fieldset><legend>Filtro 1 · Ajuste</legend>${FIT.map((f,k)=>`<label class="chk"><input type="checkbox" id="j${i}-f${k}">${f}</label>`).join('')}</fieldset>
+ <fieldset><legend>Filtro 2 · Legitimidad</legend>${LEG.map((f,k)=>`<label class="chk${f[1]?' crit':''}"><input type="checkbox" id="j${i}-l${k}">${f[0]}</label>`).join('')}</fieldset>
+ <fieldset><legend>Filtro 3 · Estrategia</legend>
+  <label for="j${i}-q">Cuartil (SJR o JCR)<select id="j${i}-q"><option>Sin dato</option><option>Q1</option><option>Q2</option><option>Q3</option><option>Q4</option><option>Regional</option></select></label>
+  <label for="j${i}-time">Tiempo hasta la primera decisión<select id="j${i}-time"><option value="?">No lo declara</option><option value="<1">Menos de 1 mes</option><option value="<3">1 a 3 meses</option><option value="3-6">3 a 6 meses</option><option value=">6">Más de 6 meses</option></select></label>
+  <label for="j${i}-apc">APC<select id="j${i}-apc"><option value="0">Sin costo</option><option value="500">Hasta 500 USD</option><option value="9999">Más de 500 USD</option><option value="?">No lo declara</option></select></label>
+ </fieldset>
+ <div class="status none" id="j${i}-st">Completa los filtros</div></div>`}
+box.innerHTML=[0,1,2].map(card).join('');
+const $=id=>document.getElementById(id);
+function read(i){return{name:$(`j${i}-name`).value.trim(),url:$(`j${i}-url`).value.trim(),q:$(`j${i}-q`).value,time:$(`j${i}-time`).value,apc:$(`j${i}-apc`).value,
+ fit:FIT.map((_,k)=>$(`j${i}-f${k}`).checked?1:0),leg:LEG.map((_,k)=>$(`j${i}-l${k}`).checked?1:0)}}
+function write(i,d){$(`j${i}-name`).value=d.name;$(`j${i}-url`).value=d.url;$(`j${i}-q`).value=d.q;$(`j${i}-time`).value=d.time;$(`j${i}-apc`).value=d.apc;
+ d.fit.forEach((v,k)=>$(`j${i}-f${k}`).checked=!!v);d.leg.forEach((v,k)=>$(`j${i}-l${k}`).checked=!!v)}
+const QP={Q1:4,Q2:3,Q3:2,Q4:1,Regional:1,'Sin dato':0};
+function evalJ(d){
+ if(!d.name)return{st:'none',msg:'Completa los filtros',pts:-1};
+ const fit=d.fit.reduce((a,b)=>a+b,0);
+ const critFail=LEG.some((l,k)=>l[1]&&!d.leg[k]);
+ const budget=+$('a-apc').value;const apcN=d.apc==='?'?Infinity:+d.apc;
+ if(critFail)return{st:'stop',msg:'Descartar: falla un criterio crítico de legitimidad',pts:-1,fit};
+ if(d.time==='<1')return{st:'stop',msg:'Descartar: promete decisión en menos de un mes',pts:-1,fit};
+ if(apcN>budget)return{st:'wait',msg:d.apc==='?'?'En duda: no declara costos. Escribe a la revista antes de enviar':'En duda: el APC supera tu presupuesto. Busca exoneración (waiver)',pts:fit*2+QP[d.q]-3,fit};
+ if(fit<4)return{st:'wait',msg:`Ajuste bajo (${fit}/5): alto riesgo de rechazo editorial`,pts:fit*2+QP[d.q]-2,fit};
+ return{st:'go',msg:`Candidata (ajuste ${fit}/5, ${d.q})`,pts:fit*2+QP[d.q]+(d.time==='<3'?1:0),fit};
+}
+function render(save=true){
+ const rows=[0,1,2].map(i=>{const d=read(i),e=evalJ(d);const st=$(`j${i}-st`);st.className='status '+e.st;st.textContent=e.msg;$(`j${i}-score`).textContent=e.fit!==undefined?`ajuste ${e.fit}/5`:'—';return{i,d,e}});
+ const ok=rows.filter(r=>r.e.pts>=0&&r.e.st!=='stop').sort((a,b)=>b.e.pts-a.e.pts);
+ const out=rows.filter(r=>r.e.st==='stop');
+ const lbl=['Principal','Alternativa 1','Alternativa 2'];
+ $('rankList').innerHTML=ok.length?ok.map((r,k)=>`<li><b>${lbl[k]}:</b> ${esc(r.d.name)} <span style="color:var(--muted)">· ${r.e.msg}</span></li>`).join('')+out.map(r=>`<li style="color:var(--red)">Descartada: ${esc(r.d.name)}</li>`).join(''):'<li style="color:var(--muted)">Aún no hay revistas candidatas. Completa al menos una tarjeta.</li>';
+ const t=$('a-title').value;
+ let f=`FICHA DE DECISIÓN DE PUBLICACIÓN\nArtículo: ${t}\nTipo: ${$('a-type').value} · Idioma: ${$('a-lang').value} · Presupuesto APC: ${$('a-apc').selectedOptions[0].text}\n\n`;
+ ok.forEach((r,k)=>{f+=`${lbl[k].toUpperCase()}: ${r.d.name}${r.d.url?' ('+r.d.url+')':''}\n  Ajuste ${r.e.fit}/5 · Cuartil ${r.d.q} · Decisión ${$(`j${r.i}-time`).selectedOptions[0].text} · APC ${$(`j${r.i}-apc`).selectedOptions[0].text}\n  Estado: ${r.e.msg}\n  Indexación verificada en: ____________ (fecha: __/__/2026)\n  Por qué esta revista: ____________\n\n`});
+ out.forEach(r=>{const miss=LEG.filter((l,k)=>l[1]&&!r.d.leg[k]).map(l=>l[0]);f+=`DESCARTADA: ${r.d.name}\n  Motivo: ${r.e.msg}${miss.length?' → '+miss.join('; '):''}\n\n`});
+ f+='Ajustes que necesita mi manuscrito antes de enviarlo: ____________';
+ $('ficha').textContent=f;
+ if(save){try{localStorage.setItem('dp-act',JSON.stringify({a:[t,$('a-type').value,$('a-lang').value,$('a-apc').value],j:rows.map(r=>r.d)}))}catch(e){}}
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+let loaded=null;try{loaded=JSON.parse(localStorage.getItem('dp-act'))}catch(e){}
+if(loaded&&loaded.j){[$('a-title').value,$('a-type').value,$('a-lang').value,$('a-apc').value]=loaded.a;loaded.j.forEach((d,i)=>write(i,d));$('exTag').hidden=true}
+else EX.forEach((d,i)=>write(i,d));
+document.getElementById('p-act').addEventListener('input',()=>{$('exTag').hidden=true;render()});
+document.getElementById('p-act').addEventListener('change',()=>render());
+$('clearAll').addEventListener('click',()=>{[0,1,2].forEach(i=>write(i,{name:'',url:'',q:'Sin dato',time:'?',apc:'0',fit:[0,0,0,0,0],leg:[0,0,0,0,0,0]}));$('a-title').value='';$('exTag').hidden=true;render()});
+$('copyFicha').addEventListener('click',()=>{const txt=$('ficha').textContent;const b=$('copyFicha');
+ navigator.clipboard.writeText(txt).then(()=>{b.textContent='Ficha copiada';setTimeout(()=>b.textContent='Copiar ficha de decisión',1800)}).catch(()=>{const r=document.createRange();r.selectNodeContents($('ficha'));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Texto seleccionado: usa Ctrl+C'})});
+render(false);
+</script>
+
+</body></html>
